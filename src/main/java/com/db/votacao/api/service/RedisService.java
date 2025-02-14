@@ -1,18 +1,20 @@
 package com.db.votacao.api.service;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.TimeUnit;
 
 @Service
-@RequiredArgsConstructor
 public class RedisService {
     private final RedisTemplate<String, Object> redisTemplate;
 
     private static final String VOTE_COUNT_KEY = "vote:session:%d:%s";
     private static final String VOTE_LOCK_KEY = "vote:lock:session:%d:user:%s";
+
+    public RedisService(RedisTemplate<String, Object> redisTemplate) {
+        this.redisTemplate = redisTemplate;
+    }
 
     public void incrementVoteCount(Long sessionId, boolean voteValue) {
         String key = String.format(VOTE_COUNT_KEY, sessionId, voteValue ? "yes" : "no");

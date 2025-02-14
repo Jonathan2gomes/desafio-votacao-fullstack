@@ -1,9 +1,7 @@
 package com.db.votacao.api.exception;
 
-import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
-@Getter
 public class VotingException extends RuntimeException {
     private final HttpStatus status;
     private final String message;
@@ -12,5 +10,13 @@ public class VotingException extends RuntimeException {
         super(message);
         this.message = message;
         this.status = status;
+    }
+
+    public HttpStatus getStatus() {
+        return status;
+    }
+
+    public String getMessage() {
+        return message;
     }
 }

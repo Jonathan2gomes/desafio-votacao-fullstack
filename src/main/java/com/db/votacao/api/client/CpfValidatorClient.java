@@ -10,7 +10,8 @@ import java.util.regex.Pattern;
 
 @Component
 public class CpfValidatorClient {
-    private final Random random = new Random();
+    Random random = new Random();
+    boolean canVote = random.nextBoolean();
     private static final Pattern CPF_PATTERN = Pattern.compile("\\d{11}");
 
     public CpfValidationResponse validateCpf(String cpf) {
@@ -25,7 +26,7 @@ public class CpfValidatorClient {
         }
 
         return new CpfValidationResponse(
-                random.nextBoolean() ? VoteAbilityStatusEnum.ABLE_TO_VOTE : VoteAbilityStatusEnum.UNABLE_TO_VOTE
+            canVote ? VoteAbilityStatusEnum.ABLE_TO_VOTE : VoteAbilityStatusEnum.UNABLE_TO_VOTE
         );
     }
 

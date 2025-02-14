@@ -4,13 +4,15 @@ import com.db.votacao.api.client.CpfValidatorClient;
 import com.db.votacao.api.dto.CpfValidationResponse;
 import com.db.votacao.api.exception.BusinessException;
 import com.db.votacao.api.model.enums.VoteAbilityStatusEnum;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
-@RequiredArgsConstructor
 public class CpfValidatorFacade {
     private final CpfValidatorClient cpfValidatorClient;
+
+    public CpfValidatorFacade(CpfValidatorClient cpfValidatorClient) {
+        this.cpfValidatorClient = cpfValidatorClient;
+    }
 
     public void validateCpfForVoting(String cpf) {
         CpfValidationResponse response = cpfValidatorClient.validateCpf(cpf);

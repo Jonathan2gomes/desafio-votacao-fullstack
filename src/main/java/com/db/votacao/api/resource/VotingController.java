@@ -11,15 +11,18 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1")
-@RequiredArgsConstructor
 public class VotingController {
+
     private final VotingService votingService;
+
+    public VotingController(VotingService votingService) {
+        this.votingService = votingService;
+    }
 
     @PostMapping("/agendas")
     @Operation(summary = "Criar nova pauta",

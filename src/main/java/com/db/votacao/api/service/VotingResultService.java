@@ -5,16 +5,20 @@ import com.db.votacao.api.model.VotingResult;
 import com.db.votacao.api.model.VotingSession;
 import com.db.votacao.api.repository.VoteRepository;
 import com.db.votacao.api.repository.VotingSessionRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class VotingResultService {
     private final VoteRepository voteRepository;
     private final VotingSessionRepository sessionRepository;
     private final RedisService redisService;
+
+    public VotingResultService(VoteRepository voteRepository, VotingSessionRepository sessionRepository, RedisService redisService) {
+        this.voteRepository = voteRepository;
+        this.sessionRepository = sessionRepository;
+        this.redisService = redisService;
+    }
 
     @Cacheable(value = "voteResults", key = "#sessionId", unless = "#result.totalVotes == 0")
     public VotingResult getVotingResult(Long sessionId) {

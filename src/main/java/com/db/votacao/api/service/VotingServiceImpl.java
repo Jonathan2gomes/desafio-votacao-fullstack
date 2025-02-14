@@ -11,7 +11,6 @@ import com.db.votacao.api.repository.AgendaRepository;
 import com.db.votacao.api.repository.VoteRepository;
 import com.db.votacao.api.repository.VotingSessionRepository;
 import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -21,7 +20,6 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 @Service
-@RequiredArgsConstructor
 public class VotingServiceImpl implements VotingService {
     private final AgendaRepository agendaRepository;
     private final VotingSessionRepository sessionRepository;
@@ -33,6 +31,16 @@ public class VotingServiceImpl implements VotingService {
 
     private static final int BATCH_SIZE = 1000;
     private final List<Vote> voteBatch = new CopyOnWriteArrayList<>();
+
+    public VotingServiceImpl(AgendaRepository agendaRepository, VotingSessionRepository sessionRepository, VoteRepository voteRepository, RedisService redisService, BatchVoteProcessor batchVoteProcessor, VotingResultService votingResultService, CpfValidatorFacade cpfValidatorFacade) {
+        this.agendaRepository = agendaRepository;
+        this.sessionRepository = sessionRepository;
+        this.voteRepository = voteRepository;
+        this.redisService = redisService;
+        this.batchVoteProcessor = batchVoteProcessor;
+        this.votingResultService = votingResultService;
+        this.cpfValidatorFacade = cpfValidatorFacade;
+    }
 
 
     @Transactional
