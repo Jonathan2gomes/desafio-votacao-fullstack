@@ -11,16 +11,18 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1")
-public class VotingController {
+@Tag(name = "Voting API", description = "API para gerenciamento de votações")
+public class VotingResource {
 
     private final VotingService votingService;
 
-    public VotingController(VotingService votingService) {
+    public VotingResource(VotingService votingService) {
         this.votingService = votingService;
     }
 

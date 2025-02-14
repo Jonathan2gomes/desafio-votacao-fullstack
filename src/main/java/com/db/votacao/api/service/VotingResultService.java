@@ -20,7 +20,7 @@ public class VotingResultService {
         this.redisService = redisService;
     }
 
-    @Cacheable(value = "voteResults", key = "#sessionId", unless = "#result.totalVotes == 0")
+    @Cacheable(value = "voteResults", key = "#sessionId", unless = "#result.getTotalVotes() == 0")
     public VotingResult getVotingResult(Long sessionId) {
         VotingSession session = sessionRepository.findById(sessionId)
                 .orElseThrow(() -> new ResourceNotFoundException("Session not found with id: " + sessionId));

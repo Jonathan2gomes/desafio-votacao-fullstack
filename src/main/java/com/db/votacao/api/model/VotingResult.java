@@ -27,4 +27,8 @@ public class VotingResult {
     public void setNoVotes(long noVotes) {
         this.noVotes = noVotes;
     }
+
+    public long getTotalVotes() {
+        return yesVotes + noVotes;
+    }
 }
