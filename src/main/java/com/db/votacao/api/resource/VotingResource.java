@@ -15,6 +15,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1")
 @Tag(name = "Voting API", description = "API para gerenciamento de votações")
@@ -77,5 +79,25 @@ public class VotingResource {
     public ResponseEntity<VotingResult> getResult(
             @Parameter(description = "ID da sessão de votação") @PathVariable Long sessionId) {
         return ResponseEntity.ok(votingService.getVotingResult(sessionId));
+    }
+
+    @GetMapping("/agendas")
+    @Operation(summary = "Listar todas as pautas",
+            description = "Retorna a lista de todas as pautas cadastradas")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Lista de pautas recuperada com sucesso")
+    })
+    public ResponseEntity<List<Agenda>> getAllAgendas() {
+        return ResponseEntity.ok(votingService.getAllAgendas());
+    }
+
+    @GetMapping("/sessions")
+    @Operation(summary = "Listar todas as sessões",
+            description = "Retorna a lista de todas as sessões de votação")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Lista de sessões recuperada com sucesso")
+    })
+    public ResponseEntity<List<VotingSession>> getAllSessions() {
+        return ResponseEntity.ok(votingService.getAllSessions());
     }
 }

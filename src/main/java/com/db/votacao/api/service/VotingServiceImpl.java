@@ -132,4 +132,14 @@ public class VotingServiceImpl implements VotingService {
 
     }
 
+    @Override
+    public List<Agenda> getAllAgendas() {
+        return agendaRepository.findAll();
+    }
+
+    @Override
+    public List<VotingSession> getAllSessions() {
+        return sessionRepository.findAll();
+    }
+
 }
